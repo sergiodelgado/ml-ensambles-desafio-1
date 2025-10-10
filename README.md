@@ -1,12 +1,13 @@
 # Ensambles | Desafío 1 (SDM)
 
-Este proyecto forma parte de mi portafolio profesional en ciencia de datos.  
-Su objetivo es aplicar técnicas de **ensambles de modelos** (Random Forest, Gradient Boosting, Stacking, etc.)  
-para resolver un problema de clasificación y comparar su rendimiento usando métricas clave.
+Este proyecto forma parte de mi portafolio profesional en ciencia de datos.
+Su objetivo es aplicar técnicas de ensamble de modelos (como Random Forest, Bagging y tree decision) para abordar un problema de clasificación y evaluar su rendimiento mediante métricas de desempeño clave.
+
+El desafío consiste en desarrollar, entrenar y comparar distintos modelos de ensamble orientados a la detección temprana de abandono de clientes (churn) en una empresa de telecomunicaciones. El análisis se realiza a partir de un conjunto de datos que contiene variables relacionadas con el comportamiento de los usuarios y los servicios contratados, con el propósito de predecir la probabilidad de baja y determinar los factores con mayor impacto en dicha decisión.
 
 ---
 
-## 🧱 Estructura del proyecto
+##  Estructura del proyecto
 - `notebooks/` → análisis principal, exploración y experimentación.
 - `src/` → utilidades reutilizables (carga de datos, métricas, pipelines).
 - `data/` → crudos (no versionados) y procesados (muestras pequeñas).
@@ -15,7 +16,7 @@ para resolver un problema de clasificación y comparar su rendimiento usando mé
 
 ---
 
-## ⚙️ Cómo ejecutar (Windows)
+##  Cómo ejecutar (Windows)
 Abre **Git Bash o PowerShell** en la raíz del repo y corre en orden:
 
 ### 1) Crear y activar entorno virtual
@@ -37,7 +38,7 @@ jupyter notebook notebooks/01_ensambles_desafio_sdm.ipynb
 
 ---
 
-## 📊 Resultados esperados
+##  Resultados esperados
 - Comparación de modelos de ensamble.
 - Tabla de métricas (F1, Precision, Recall, ROC-AUC).
 - Visualizaciones (ROC, matriz de confusión, feature importance).
@@ -45,7 +46,7 @@ jupyter notebook notebooks/01_ensambles_desafio_sdm.ipynb
 
 ---
 
-## 🗺️ Futuras mejoras
+##  Futuras mejoras
 - Búsqueda de hiperparámetros y validación cruzada estratificada.
 - Calibración de probabilidades y ajuste de umbral.
 - Explicabilidad (Permutation Importance / SHAP).
@@ -53,5 +54,5 @@ jupyter notebook notebooks/01_ensambles_desafio_sdm.ipynb
 
 ---
 
-## 📜 Licencia
+##  Licencia
 MIT — uso abierto con atribución.
