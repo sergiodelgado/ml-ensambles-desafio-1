@@ -1,55 +1,81 @@
 # Predicción de Churn con Modelos de Ensamble  
 **Desafío 1 — Ciencia de Datos (SDM)**
 
-Este proyecto forma parte de mi portafolio profesional en ciencia de datos.  
-Su objetivo es aplicar técnicas de **ensamble de modelos** (Random Forest, Bagging, Árboles de Decisión y variantes optimizadas) para resolver un problema realista de **clasificación binaria orientada a la predicción de churn** en telecomunicaciones.
+Proyecto de **machine learning aplicado** orientado a la **detección temprana de churn** en telecomunicaciones, utilizando modelos de ensamble y métricas enfocadas en la clase minoritaria.
 
-El enfoque combina:
-- Exploración sistemática del dataset (EDA),
-- Entrenamiento de modelos individuales y de ensamble,
-- Evaluación comparativa con métricas robustas,
-- Análisis de interpretabilidad y segmentación de clientes de alto riesgo.
+Este trabajo forma parte de mi **portafolio profesional en Data Science / Machine Learning** y cubre el ciclo completo:
+- exploración y comprensión del problema,
+- modelado con múltiples enfoques,
+- evaluación crítica de métricas,
+- interpretación de resultados,
+- traducción a decisiones de negocio accionables.
 
 ---
 
 ## 1. Contexto del problema
 
-Una empresa ficticia de telecomunicaciones busca identificar clientes con alta probabilidad de abandono.  
-El dataset contiene variables de uso, facturación, antigüedad y atributos del servicio contratado.
+Una empresa ficticia de telecomunicaciones busca identificar clientes con **alta probabilidad de abandono (churn)** antes de que este ocurra, con el fin de priorizar acciones de retención.
 
-El objetivo es:
-1. **Predecir churn** (sí/no),
-2. **Identificar modelos que mejor capturan el patrón de abandono**,  
-3. **Determinar drivers clave** del comportamiento de baja.
+El dataset contiene variables de:
+- uso del servicio,
+- facturación y sobrecargos,
+- antigüedad del cliente,
+- interacción con soporte.
 
-Este tipo de análisis es central en industrias basadas en ingresos recurrentes: telecomunicaciones, banca, SaaS, utilities y otros servicios.
+### Objetivos del proyecto
+1. **Predecir churn** (clasificación binaria).
+2. **Comparar modelos base y de ensamble** bajo un escenario de clases desbalanceadas.
+3. **Identificar los drivers principales del abandono** desde una perspectiva técnica y de negocio.
+4. **Generar rankings accionables de clientes en riesgo**.
+
+Este tipo de análisis es central en industrias de ingresos recurrentes como telecomunicaciones, banca, seguros, SaaS y utilities.
 
 ---
 
-## 2. Estructura del repositorio
+## 2. Enfoque metodológico
 
-```text
+El proyecto se desarrolla de forma incremental y comparativa:
+
+- **Exploración de datos (EDA)** con foco en desbalance, patrones de uso y costos.
+- **Modelos base**: Árbol de Decisión.
+- **Modelos de ensamble**:
+  - Bagging homogéneo con SMOTE.
+  - Bagging heterogéneo (con calibración de importancia).
+  - Random Forest (baseline y optimizado).
+- **Optimización** mediante GridSearchCV.
+- **Evaluación** con métricas adecuadas para churn:
+  - Precision, Recall y F1-score (clase positiva).
+  - Balanced Accuracy.
+  - ROC–AUC.
+- **Interpretabilidad** vía importancia de variables.
+- **Segmentación final** de clientes con mayor riesgo.
+
+---
+
+## 3. Estructura del repositorio
+
+~~~text
 ml-ensambles-desafio-1/
-├── notebooks/               # Exploración, modelado y reportes ejecutables
+├── notebooks/                    # Exploración, modelado y reportes ejecutables
 │   ├── 00_ensambles_desafio_sdm_original.ipynb
 │   └── 02_modelos_ensamble_churn_sdm.ipynb
 │
-├── src/ml_ensambles_desafio_1/   # Utilidades (pipelines, modelos, evaluación)
+├── src/ml_ensambles_desafio_1/    # Utilidades (bagging, evaluación)
 │
 ├── data/
-│   ├── raw/                 # Dataset original (versionado)
-│   └── processed/           # Derivados (no versionados)
+│   ├── raw/                      # Dataset original
+│   └── processed/                # Derivados intermedios
 │
-├── reports/                 # Gráficos, métricas y salidas exportadas
-│   └── figures/
+├── reports/
+│   └── figures/                  # Gráficos y salidas
 │
-├── requirements.txt         # Dependencias del proyecto
+├── requirements.txt
 └── README.md
-```
+~~~
 
 ---
 
-## 3. Cómo ejecutar el proyecto (Windows / PowerShell)
+## 4. Ejecución local (Windows / PowerShell)
 
 ### 1) Crear y activar entorno virtual
 
@@ -64,66 +90,77 @@ python -m venv .venv
 pip install -r requirements.txt
 ~~~
 
-### 3) Ejecutar notebooks
+### 3) Ejecutar el notebook principal
 
 ~~~bash
 jupyter notebook notebooks/02_modelos_ensamble_churn_sdm.ipynb
 ~~~
 
-> Verifica que aparece `(.venv)` en tu terminal para asegurar el entorno correcto.
-
 ---
 
-## 4. Ejecutar en Google Colab
+## 5. Ejecución en Google Colab
 
-Si prefieres ejecutar el análisis directamente en la nube, sin instalar dependencias locales, puedes abrir el notebook principal en Google Colab usando el siguiente acceso directo:
+El notebook principal puede ejecutarse directamente en Google Colab:
 
 [![Abrir en Google Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/sergiodelgado/ml-ensambles-desafio-1/blob/main/notebooks/02_modelos_ensamble_churn_sdm.ipynb)
 
-Este entorno permite:
-- Ejecutar el notebook sin configuración adicional,
-- Modificar código y probar variantes,
-- Usar recursos gratuitos de GPU/TPU (si fuese necesario),
-- Mantener el flujo de análisis reproducible desde GitHub.
+Esto permite:
+- reproducir el análisis sin configuración local,
+- experimentar con variantes del modelo,
+- mantener trazabilidad desde GitHub.
 
 ---
 
+## 6. Resultados principales
 
-## 5. Resultados y análisis
+### Comparación de modelos
 
-Los notebooks incluyen:
+Se evaluaron múltiples enfoques, destacando:
 
-### Evaluación de modelos
-- Árbol de Decisión (baseline y optimizado)
-- Bagging
-- Random Forest (+ búsqueda de hiperparámetros)
-- Comparación de métricas:
-  - Accuracy  
-  - Precision / Recall  
-  - F1-score  
-  - ROC–AUC  
+- Árbol de Decisión (baseline y optimizado).
+- Bagging homogéneo + SMOTE (alto recall, más falsos positivos).
+- Bagging heterogéneo calibrado (buen equilibrio, mayor complejidad).
+- **Random Forest optimizado (modelo final)**.
 
-### Visualizaciones
-- Matrices de confusión  
-- Curvas ROC  
-- Feature Importance  
-- Distribuciones de churn
+### Modelo final recomendado
 
-### Segmentación
-- Ranking de clientes con mayor probabilidad de abandono  
-- Exportación automática a `reports/`  
+**Random Forest optimizado (GridSearchCV)**:
+- ROC–AUC: **0.86**
+- Recall (Churn): **0.63**
+- F1-score (Churn): **0.71**
+- OOB Accuracy: **0.94**
 
----
+### Variables más influyentes
 
-## 6. Próximas mejoras sugeridas
-- Validación cruzada estratificada y búsqueda más exhaustiva de hiperparámetros.  
-- Calibración de probabilidades (Platt/Isotonic).  
-- Explainability: SHAP, Permutation Importance.  
-- Pipeline reproducible con `src/` + `notebooks/` + `reports/`.  
-- Publicación del informe como HTML o en GitHub Pages.  
-- Versión ejecutable en Google Colab con badge directo desde README.
+- `DayMins`
+- `MonthlyCharge`
+- `CustServCalls`
+- `OverageFee`
+
+Estas variables confirman que el churn está asociado a **uso intensivo, costos elevados y fricción operativa**, en línea con el análisis exploratorio.
 
 ---
 
-## 7. Licencia
+## 7. Segmentación de clientes de alto riesgo
+
+El modelo final permite generar un **ranking de clientes por probabilidad estimada de churn**, identificando patrones comunes en los casos de mayor riesgo y habilitando:
+
+- campañas de retención focalizadas,
+- ofertas personalizadas,
+- alertas tempranas basadas en datos.
+
+---
+
+## 8. Próximas extensiones posibles
+
+- Calibración de probabilidades (Platt / Isotonic).
+- Explainability avanzada (SHAP, Permutation Importance).
+- Umbrales de decisión dependientes de costo.
+- Pipeline productivo (scikit-learn + serialización).
+- Publicación del reporte como HTML o GitHub Pages.
+
+---
+
+## 9. Licencia
+
 MIT — uso libre con atribución.
