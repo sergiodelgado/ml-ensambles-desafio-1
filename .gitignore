@@ -8,13 +8,20 @@ __pycache__/
 .ipynb_checkpoints/
 *.ipynb_convert/
 
-# Datos
-data/raw/
-data/**/*.tmp
+# Datos (ignorar archivos pesados pero NO data/raw completo)
+# Ignora solo tipos típicos de gran tamaño o derivados
 *.csv.zip
 *.parquet
 *.feather
+data/**/*.tmp
+
+# SI quieres ignorar processed porque suele ser derivado
+data/processed/
+
+# SI quieres versionar CSVs livianos del proyecto:
+# NO ignores data/raw/
 
 # SO
 .DS_Store
 Thumbs.db
+
